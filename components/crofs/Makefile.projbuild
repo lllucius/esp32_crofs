@@ -1,0 +1,6 @@
+
+# Define the path to mkcrofs for usage in the
+# toplevel Makefile
+
+MKCROFS = build/crofs/mkcrofs
+

@@ -1,0 +1,17 @@
+menu "CroFS Example Setup"
+
+config CROFS_EXAMPLE_MOUNT_POINT
+    string "Mount point"
+    default "/crofs"
+    help
+        Specifies the mount point for the filesystem.
+
+config CROFS_EXAMPLE_OPEN_FILES
+    int "Open files"
+    default 10
+    help
+        Specifies the maximum number of open files per
+        CroFS instance.
+
+endmenu
+
