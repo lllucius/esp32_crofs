@@ -21,6 +21,7 @@ mkcrofs: $(MKCROFS_SRC)
 	$(CXX) $(CXXFLAGS) $(MKCROFS_INCLUDES) -o $@ $+
 
 build: lib$(COMPONENT_NAME).a mkcrofs
+
 ifdef CONFIG_CROFS_EMBED
 
 COMPONENT_EMBED_FILES := $(COMPONENT_BUILD_DIR)/crofs

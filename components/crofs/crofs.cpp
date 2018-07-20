@@ -362,11 +362,7 @@ off_t CroFS::lseek_p(void *ctx, int fd, off_t offset, int whence)
 
         if (offset < file->offset)
         {
-            const uint8_t *addr = file->entry.addr;
-
-            *file = {};
-
-            that->get_entry(addr, &file->entry);
+            file->offset = 0;
 
             tinfl_init(&dc->ctx);
             dc->ipos = 0;
