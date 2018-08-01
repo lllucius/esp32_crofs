@@ -1164,7 +1164,7 @@ void CroFS::walk(const char *parent, const char *name, int level)
         long dpos2 = telldir_p(this, dir);
         if (dpos2 != dpos)
         {
-            printf("seekdir() position should be %zd but is %zd for %s\n", dpos, dpos2, parent);
+            printf("seekdir() position should be %ld but is %ld for %s\n", dpos, dpos2, parent);
             abort();
         }
         
@@ -1234,7 +1234,7 @@ void CroFS::walk(const char *parent, const char *name, int level)
                 abort();
             }
 
-            printf(" (usize=%zd, csize=%zd, bytes read=%zd, pos=%zd)\n", st.st_size, st.st_blocks, bytes, TELL(this, fd));
+            printf(" (usize=%ld, csize=%ld, bytes read=%zd, pos=%ld)\n", st.st_size, st.st_blocks, bytes, TELL(this, fd));
 
             struct stat st2;
             if (stat_p(this, path, &st2) != 0)
@@ -1246,8 +1246,8 @@ void CroFS::walk(const char *parent, const char *name, int level)
             if (st.st_size != st2.st_size || st.st_blocks != st2.st_blocks)
             {
                 printf("fstat() and stat() results differ for %s:\n", path);
-                printf("  fstat(): size=%zd, blocks=%zd\n", st.st_size, st.st_blocks);
-                printf("  stat(): size=%zd blocks=%zd\n", st2.st_size, st2.st_blocks);
+                printf("  fstat(): size=%ld, blocks=%ld\n", st.st_size, st.st_blocks);
+                printf("  stat(): size=%ld blocks=%ld\n", st2.st_size, st2.st_blocks);
                 abort();
             } 
 
@@ -1260,7 +1260,7 @@ void CroFS::walk(const char *parent, const char *name, int level)
 
                 if (pos == -1 || pos != st.st_size / 2)
                 {
-                    printf("SEEK_SET(size / 2) to %zd got %zd failed %s: %s\n", st.st_size / 2, pos, path, strerror(errno));
+                    printf("SEEK_SET(size / 2) to %ld got %ld failed %s: %s\n", st.st_size / 2, pos, path, strerror(errno));
                     abort();
                 } 
 
@@ -1268,7 +1268,7 @@ void CroFS::walk(const char *parent, const char *name, int level)
                 pos = lseek_p(this, fd, st.st_size - 1, SEEK_SET);
                 if (pos == -1 || pos != st.st_size - 1 || TELL(this, fd) != pos)
                 {
-                    printf("SEEK_SET(size - 1) to %zd got %zd failed %s: %s\n", st.st_size - 1, pos, path, strerror(errno));
+                    printf("SEEK_SET(size - 1) to %ld got %ld failed %s: %s\n", st.st_size - 1, pos, path, strerror(errno));
                     abort();
                 } 
 
@@ -1276,7 +1276,7 @@ void CroFS::walk(const char *parent, const char *name, int level)
                 pos = lseek_p(this, fd, -2, SEEK_CUR);
                 if (pos == -1 || pos != st.st_size - 3 || TELL(this, fd) != pos)
                 {
-                    printf("SEEK_CUR(-2) to %zd got %zd failed %s: %s\n", st.st_size - 3, pos, path, strerror(errno));
+                    printf("SEEK_CUR(-2) to %ld got %ld failed %s: %s\n", st.st_size - 3, pos, path, strerror(errno));
                     abort();
                 } 
 
@@ -1284,7 +1284,7 @@ void CroFS::walk(const char *parent, const char *name, int level)
                 pos = lseek_p(this, fd, -2, SEEK_END);
                 if (pos == -1 || pos != st.st_size - 2 || TELL(this, fd) != pos)
                 {
-                    printf("SEEK_END(-2) to %zd got %zd failed %s: %s\n", st.st_size - 2, pos, path, strerror(errno));
+                    printf("SEEK_END(-2) to %ld got %ld failed %s: %s\n", st.st_size - 2, pos, path, strerror(errno));
                     abort();
                 } 
 
@@ -1292,7 +1292,7 @@ void CroFS::walk(const char *parent, const char *name, int level)
                 pos = lseek_p(this, fd, -2, SEEK_END);
                 if (pos == -1 || pos != st.st_size - 2 || TELL(this, fd) != pos)
                 {
-                    printf("SEEK_END(-2) to %zd got %zd failed %s: %s\n", st.st_size - 2, pos, path, strerror(errno));
+                    printf("SEEK_END(-2) to %ld got %ld failed %s: %s\n", st.st_size - 2, pos, path, strerror(errno));
                     abort();
                 } 
 
@@ -1300,7 +1300,7 @@ void CroFS::walk(const char *parent, const char *name, int level)
                 pos = lseek_p(this, fd, -st.st_size, SEEK_END);
                 if (pos == -1 || pos != 0 || TELL(this, fd) != pos)
                 {
-                    printf("SEEK_END(-size) to %d got %zd failed %s: %s\n", 0, pos, path, strerror(errno));
+                    printf("SEEK_END(-size) to %d got %ld failed %s: %s\n", 0, pos, path, strerror(errno));
                     abort();
                 } 
 
@@ -1308,7 +1308,7 @@ void CroFS::walk(const char *parent, const char *name, int level)
                 pos = lseek_p(this, fd, 1, SEEK_CUR);
                 if (pos == -1 || pos != 1 || TELL(this, fd) != pos)
                 {
-                    printf("SEEK_CUR(1) to %d got %zd failed %s: %s\n", 1, pos, path, strerror(errno));
+                    printf("SEEK_CUR(1) to %d got %ld failed %s: %s\n", 1, pos, path, strerror(errno));
                     abort();
                 } 
 
@@ -1316,7 +1316,7 @@ void CroFS::walk(const char *parent, const char *name, int level)
                 pos = lseek_p(this, fd, st.st_size - 1, SEEK_CUR);
                 if (pos == -1 || pos != st.st_size || TELL(this, fd) != pos)
                 {
-                    printf("SEEK_CUR(size - 1) to %zd got %zd failed %s: %s\n", st.st_size, pos, path, strerror(errno));
+                    printf("SEEK_CUR(size - 1) to %ld got %ld failed %s: %s\n", st.st_size, pos, path, strerror(errno));
                     abort();
                 } 
 
@@ -1324,7 +1324,7 @@ void CroFS::walk(const char *parent, const char *name, int level)
                 pos = lseek_p(this, fd, 1, SEEK_END);
                 if (pos != -1)
                 {
-                    printf("SEEK_END(+1) did not fail got %zd %s\n", pos, path);
+                    printf("SEEK_END(+1) did not fail got %ld %s\n", pos, path);
                     abort();
                 } 
 
@@ -1332,7 +1332,7 @@ void CroFS::walk(const char *parent, const char *name, int level)
                 pos = lseek_p(this, fd, -1, SEEK_SET);
                 if (pos != -1)
                 {
-                    printf("SEEK_SET(-1) did not fail got %zd %s\n", pos, path);
+                    printf("SEEK_SET(-1) did not fail got %ld %s\n", pos, path);
                     abort();
                 } 
             }
@@ -1443,7 +1443,7 @@ int CroFS::mkcrofs(int argc, char *argv[])
     uint8_t *fs = (uint8_t *) malloc(imagesize);
     if (fs == NULL)
     {
-        printf("%zd bytes of memory unavailable for filesystem image\n", imagesize);
+        printf("%ld bytes of memory unavailable for filesystem image\n", imagesize);
         abort();
     }
 
