@@ -109,7 +109,7 @@ void walk(const char *parent, const char *name, int level)
                 abort();
             }
 
-            printf(" (usize=%ld, csize=%ld, bytes read=%d)\n", st.st_size, st.st_blocks, bytes);
+            printf(" (usize=%ld, csize=%ld, bytes read=%zd)\n", st.st_size, st.st_blocks, bytes);
 
             if (fclose(f) != 0)
             {

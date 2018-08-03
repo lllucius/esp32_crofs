@@ -350,7 +350,7 @@ off_t CroFS::lseek_p(void *ctx, int fd, off_t offset, int whence)
         return -1;
     }
 
-    if (offset < 0 || offset > file->entry.usize)
+    if (offset < 0 || offset > (off_t) file->entry.usize)
     {
         errno = EINVAL;
         return -1;
